@@ -15,6 +15,11 @@ class TestCsvParser {
         testMap.put("World", 3);
         testMap.put("9", 8);
         ArrayList<Words> testArray = MapToList.toList(testMap);
+        Words result = testArray.get(1);
+        assertEquals("Hello", result.word());
+        assertEquals(5, result.count());
+        }
+        void TestParserTxt() {
 
         }
 }
