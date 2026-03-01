@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class MapToList {
     public static ArrayList<Words> toList(Map<String, Integer> MapWords) {
-        ArrayList<Words> SortedWords = new ArrayList<Words>();
+        ArrayList<Words> SortedWords = new ArrayList<>();
 
         for (Map.Entry<String, Integer> entry : MapWords.entrySet()) {
             SortedWords.add(new Words(entry.getKey(), entry.getValue()));
