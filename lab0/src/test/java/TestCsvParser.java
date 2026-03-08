@@ -1,4 +1,4 @@
-import csv.MapToList;
+import csv.WriterCSV;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -7,30 +7,25 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.ArrayList;
 import csv.Words;
-import csv.Parser_txt;
-import csv.WriterCSV;
+import csv.ReaderFile;
 
 class TestCsvParser {
 
     @Test
-    void TestMapToList() {
-        Map<String, Integer> testMap = new HashMap<>();
-        testMap.put("Hello", 5);
-        testMap.put("World", 3);
-        testMap.put("9", 8);
-        ArrayList<Words> testArray = MapToList.toList(testMap);
-        Words result = testArray.get(1);
-        assertEquals("Hello", result.word());
-        assertEquals(5, result.count());
-    }
-
-    @Test
-    void TestParserTxt() {
-        String TestLine = "Hello, world! 923-435";
-        Parser_txt TestParser = new Parser_txt();
-        int count = TestParser.add_words(TestLine);
-        Map<String, Integer> TestMap = TestParser.get_map();
-        assertEquals(4, count);
-        assertEquals(1, TestMap.get("923"));
+    void TestReaderFile() {
+        String NameFile = "/TestTxt";
+        try (ReaderFile TestFile = new ReaderFile(NameFile)){
+            ArrayList<Words> TestList = TestFile.getSortedList();
+            WriterCSV csv = new WriterCSV();
+            csv.WriteInCsv(TestList);
+            Words TestWords = TestList.getFirst();
+            assertEquals("im", TestWords.word());
+            assertEquals(1, TestWords.count());
+            TestWords = TestList.get(5);
+            assertEquals("pf", TestWords.word());
+            assertEquals(3, TestWords.count());
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
     }
 }
